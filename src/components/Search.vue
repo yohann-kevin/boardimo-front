@@ -2,15 +2,22 @@
     <div id="search">
       <h1>Analyser un bien immobilier !</h1>
       <div class="center">
-      <input type="text" class="form-input rounded text-pink-500 px-5 py-2">
-      <button>Lancer l'analyse</button>
+        <input ref="urlEntry" type="text" class="form-input rounded text-pink-500 px-5 py-2">
+        <button v-on:click="sendValue()">Lancer l'analyse</button>
       </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: "Search"
+    name: "Search",
+    methods: {
+      sendValue: function () {
+        let arg = this.$refs.urlEntry.value
+        this.$axios.post("http://localhost:7373/add_data", JSON.stringify({arg}))
+        this.$emit("sendurl")
+      }
+    },
 }
 </script>
 

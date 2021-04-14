@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header/>
-    <Search/>
+    <Search v-on:sendurl="findData"/>
     <Results/>
     <Analyse/>
   </div>
@@ -20,7 +20,18 @@ export default {
     Search,
     Results,
     Analyse
-  }
+  },
+  methods: {
+    findData: function() {
+      this.$axios.get("http://localhost:7373/").then(response => (this.formatData(response.data)))
+    },
+    formatData: function(data) {
+      console.log(data)
+    }
+  },
+  mounted() {
+    this.findData()
+  },
 }
 </script>
 
