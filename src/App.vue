@@ -2,7 +2,7 @@
   <div id="app">
     <Header/>
     <Search v-on:sendurl="findData"/>
-    <Results/>
+    <Results :data="this.data"/>
     <Analyse/>
   </div>
 </template>
@@ -15,6 +15,11 @@ import Analyse from './components/Analyse.vue'
 
 export default {
   name: 'App',
+  data() {
+    return {
+      data: {}
+    }
+  },
   components: {
     Header,
     Search,
@@ -26,7 +31,9 @@ export default {
       this.$axios.get("http://localhost:7373/").then(response => (this.formatData(response.data)))
     },
     formatData: function(data) {
-      console.log(data)
+      // console.log(data)
+      // console.log(typeof data)
+      this.data = data
     }
   },
   mounted() {

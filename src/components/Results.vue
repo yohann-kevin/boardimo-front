@@ -1,31 +1,45 @@
 <template>
-    <div id="results" class="flex shadow-2xl">
+    <div ref="results" id="results" class="flex shadow-2xl">
       <div class="flex-none w-48 relative">
-      <img src="../assets/img/house.png" alt="" class="absolute inset-0 w-full h-full object-cover" />
+        <img :src="this.data.images" alt="" class="absolute inset-0 w-full h-full object-cover" />
       </div>
       <form class="flex-auto p-6">
-      <div class="flex flex-wrap">
-        <h1 class="flex-auto text-xl font-semibold">
-        Maison contemporaine au centre de séné
-        </h1>
-        <div class="text-xl font-semibold text-gray-500">
-        718 500 €
+        <div class="flex flex-wrap">
+          <h1 class="flex-auto text-xl font-semibold">
+          {{ this.data.title }}
+          </h1>
+          <div class="text-xl font-semibold text-gray-500">
+          {{ this.data.price }} €
+          </div>
         </div>
-      </div>
     
         <div class="divide-y divide-fuchsia-300">
-          <div><span class="badge bg-primary">165m²</span>   <span class="badge bg-primary">2012</span> <span class="badge bg-d">D</span></div>
+          <div><span class="badge bg-primary">{{ this.data.size }}m²</span>   <span class="badge bg-primary">{{ this.data.foundation_years }}</span> <span class="badge bg-d">{{ this.data.energy }}</span></div>
           <br>
-          <div class="bottom-divide">Prix par m² <span class="price">4363€</span></div>
-    
+          <div class="bottom-divide">Prix par m² <span class="price">{{ this.computeMeterPrice(this.data.price, this.data.size) }} €</span></div>
         </div>
-        </form>
+      </form>
     </div>
 </template>
 
 <script>
 export default {
-    name: "Results"
+    name: "Results",
+    props: {
+      data: Object
+    },
+    methods: {
+      prepareData: function() {
+        console.log(this.data)
+        if (this.data.title != undefined) this.$refs.results.style.display = "block"
+      },
+      computeMeterPrice: function(price, size) {
+        return (price / size).toFixed(2)
+      }
+    },
+    updated() {
+      this.prepareData
+    },
 }
 </script>
 
@@ -35,6 +49,7 @@ export default {
   width: 60%;
   border-radius: 5px;
   overflow: hidden;
+  /* display: none; */
 }
 
 span.price {
