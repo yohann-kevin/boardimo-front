@@ -82,7 +82,7 @@ export default {
       return result
     },
     computeAgeExpanseAverage: function() {
-      houseValue = house_age_value[0]
+      let houseValue = house_age_value[0]
       if (houseValue < average_expanse_age) {
         return (average_expanse_age - houseValue) + "€ de moins"
       } else {
