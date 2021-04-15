@@ -3,7 +3,7 @@
     <h2>Analyse du bien</h2>
     <div :class="this.bgPrice()" role="alert">
     <h4 class="alert-heading">Prix du bien</h4>
-    <p>À {{ this.price()[0] }}, le prix moyen d'une maison au m² est de <b>{{ this.price()[1] }}€</b> soit {{ this.price()[2] }}% inférieur au prix de ce bien.</p>
+    <p>À {{ this.results.location }}, le prix moyen d'une maison au m² est de <b>{{ this.analyse.house_average }}€</b> soit {{ this.computePricePercent() }}% inférieur au prix de ce bien.</p>
     </div>
     <div class="alert alert-info" role="alert">
     <h4 class="alert-heading">Année de construction</h4>
@@ -34,13 +34,6 @@ export default {
     analyse: Object
   },
   methods: {
-    price: function() {
-      return [
-        this.results.location,
-        this.analyse.house_average,
-        this.computePricePercent()
-      ]
-    },
     cumputePricePercent: function() {
       return (((this.results.price / this.results.size) / this.analyse.house_average) * 100).toFixed(2)
     },
