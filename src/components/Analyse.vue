@@ -9,7 +9,7 @@
     <h4 class="alert-heading">Année de construction</h4>
     <p>Cette maison <b>est plus récente que {{ this.computeAgePercent() }}%</b> des maisons en vente actuellement et a en moyenne <b>{{ this.computeAge() }} ans de {{ this.computeAgeDif() }} que la concurrence</b></p>
     <!-- <hr> -->
-    <p class="mb-0">Suite à un achat de ce type, un acquereur {{ this.ageEconomy() }} en moyenne <b>{{ this.analyse.house_age_value[1] }}€ de rénovations en tout genre</b> soit <b>17 325€ de moins</b> que la moyenne pour cette surface</p>
+    <p class="mb-0">Suite à un achat de ce type, un acquereur {{ this.ageEconomy() }} en moyenne <b>{{ this.analyse.house_age_value[0] }}€ de rénovations en tout genre</b> soit <b>17 325€ de moins</b> que la moyenne pour cette surface</p>
     </div>
     <div class="alert alert-warning" role="alert">
     <h4 class="alert-heading">Classe énergie</h4>
@@ -17,11 +17,11 @@
     <!-- <hr> -->
     <p class="mb-0">Le surcoût énergétique par m2 est estimé à 30.4€</p>
     </div>
-    <div class="alert alert-danger" role="alert">
+    <div :class="this.bgFinalEvaluation()" role="alert">
     <h4 class="alert-heading">Estimation</h4>
-    <p>En prenant en compte l'année de construction, la localisation et le prix au m2 nous pensons que cette maison est surévaluée.</p>
+    <p>En prenant en compte l'année de construction, la localisation et le prix au m2 nous pensons que cette maison est {{ this.finalEvaluation }}.</p>
     <!-- <hr> -->
-    <p class="mb-0">Afin de correspondre au prix du marché nous évaluons que le prix de ce bien devrait se situer entre <b>552k€</b> et <b>675k€</b></p>
+    <p class="mb-0">Afin de correspondre au prix du marché nous évaluons que le prix de ce bien devrait se situer entre <b>{{ this.omputePotentialMinValue() }}€</b> et <b>{{ this.computePotentialMaxValue() }}€</b></p>
     </div>
   </div>
 </template>
@@ -49,7 +49,7 @@ export default {
       return result
     },
     computeAgePercent: function() {
-      return (((2021 - this.results.foundation_years) / this.analyse.years_average) * 100)
+      return (((2021 - this.results.foundation_years) / this.analyse.years_average) * 100).toFixed(2)
     },
     computeAge: function() {
       return 2021 - this.results.foundation_years
@@ -73,6 +73,29 @@ export default {
       if (houseAge < 20 && houseAge > 9) result += "alert-info"
       if (houseAge < 40 && houseAge > 19) result += "alert-warning"
       if (houseAge > 40) result += "alert-danger"
+      return result
+    },
+
+    finalEvaluation: function() {
+      if (this.analyse.real_square_meter_price < this.analyse.house_average) {
+        return "sous évalué"
+      } else {
+        return "surévaluée"
+      }
+    },
+    computePotentialMinValue: function() {
+      return ((this.house_average * this.results.size) * 0.9).toFixed(2)
+    },
+    computePotentialMaxValue: function() {
+      return ((this.house_average * this.results.size) * 1.1).toFixed(2)
+    },
+    bgFinalEvaluation: function() {
+      let priceMeter = this.analyse.real_square_meter_price
+      let result = "alert "
+      if (priceMeter < this.analyse.house_average) result += " alert-success"
+      if (priceMeter >= (this.analyse.house_average * 1.1)) result += " alert-info"
+      if (priceMeter >= (this.analyse.house_average * 1.25)) result += " alert-warning"
+      if (priceMeter >= (this.analyse.house_average * 1.5)) result += " alert-danger"
       return result
     }
   }
