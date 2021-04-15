@@ -11,11 +11,11 @@
     <!-- <hr> -->
     <p class="mb-0">Suite à un achat de ce type, un acquereur {{ this.ageEconomy() }} en moyenne <b>{{ this.analyse.house_age_value[0] }}€ de rénovations en tout genre</b> soit <b>{{ this.computeAgeExpanseAverage() }}</b> que la moyenne pour cette surface</p>
     </div>
-    <div class="alert alert-warning" role="alert">
+    <div :class="this.bgEnergy()" role="alert">
     <h4 class="alert-heading">Classe énergie</h4>
-    <p>Cette maison a une <b>classe énergétique D</b> ce qui est moins bien que 51% des maisons en vente actuellement</p>
+    <p>Cette maison a une <b>classe énergétique {{ this.results.energy }}</b> ce qui est moins bien que {{ this.formatPercentEnergy() }}% des maisons en vente actuellement</p>
     <!-- <hr> -->
-    <p class="mb-0">Le surcoût énergétique par m2 est estimé à 30.4€</p>
+    <p class="mb-0">Le surcoût énergétique par m2 est estimé à {{ this.priceEnergeticExpanse() }}€</p>
     </div>
     <div :class="this.bgFinalEvaluation()" role="alert">
     <h4 class="alert-heading">Estimation</h4>
@@ -89,7 +89,21 @@ export default {
         return (houseValue - this.analyse.average_expanse_age) + "€ de plus"
       }
     },
-
+    formatPercentEnergy: function() {
+      return this.analyse.average_expanse_age.toFixed(2)
+    },
+    priceEnergeticExpanse: function() {
+      return (this.analyse.energetic_value / this.results.size).toFixed(1)
+    },
+    bgEnergy: function() {
+      let note = this.results.energy
+      let result = "alert "
+      if (note == "A" || note == "B") result += "alert-success"
+      if (note == "C" || note == "D") result += "alert-info"
+      if (note == "E") result += "alert-warning"
+      if (note == "F" || note == "G") result += "alert-danger"
+      return result
+    },
     finalEvaluation: function() {
       if (this.analyse.real_square_meter_price < this.analyse.house_average) {
         return "sous évalué"
