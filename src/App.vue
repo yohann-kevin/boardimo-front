@@ -3,7 +3,7 @@
     <Header/>
     <Search v-on:sendurl="findData"/>
     <Results :data="this.results"/>
-    <Analyse/>
+    <Analyse :results="this.results" :analyse="this.analyse"/>
   </div>
 </template>
 

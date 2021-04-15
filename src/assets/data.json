@@ -1,0 +1,18 @@
+{
+    "results" : {
+        "title" : "Grande maison 7 chambres",
+        "images" : "https://simply-home.herokuapp.com/images/img-soutenance/maison_pierre.jpg",
+        "size" : 217,
+        "location" : "vannes",
+        "price" : 399000,
+        "energy" : "B", 
+        "foundation_years" : 1767, 
+        "content" : "Charmante maison du 18e siècle, en pierre, située entre Moustoir-Ac et Locminé, à 25 minutes de Vannes. Elle est composée, au rez-de-chaussée, d'un bureau, d'une salle à manger, un salon-séjour, une cuisine, une buanderie, un WC, une chambre et un garage. Au premier"
+    }, "analyze" : {
+        "house_average" : 3677, 
+        "years_average" : 33, 
+        "energetic_value" : [35045.5, true], 
+        "house_age_value" : [77035, false], 
+        "real_square_meter_price" : 2031.5
+    }
+}
