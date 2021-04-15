@@ -2,7 +2,7 @@
   <div id="app">
     <Header/>
     <Search v-on:sendurl="findData"/>
-    <Results :data="this.data"/>
+    <Results :data="this.results"/>
     <Analyse/>
   </div>
 </template>
@@ -17,7 +17,8 @@ export default {
   name: 'App',
   data() {
     return {
-      data: {}
+      results: {},
+      analyse: {}
     }
   },
   components: {
@@ -31,9 +32,9 @@ export default {
       this.$axios.get("http://localhost:7373/").then(response => (this.formatData(response.data)))
     },
     formatData: function(data) {
-      // console.log(data)
-      // console.log(typeof data)
-      this.data = data
+      // console.log(data.results)
+      this.results = data.results
+      this.analyse = data.analyze
     }
   },
   mounted() {

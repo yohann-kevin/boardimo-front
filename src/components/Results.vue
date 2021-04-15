@@ -14,7 +14,11 @@
         </div>
     
         <div class="divide-y divide-fuchsia-300">
-          <div><span class="badge bg-primary">{{ this.data.size }}m²</span>   <span class="badge bg-primary">{{ this.data.foundation_years }}</span> <span class="badge bg-d">{{ this.data.energy }}</span></div>
+          <div>
+            <span class="badge bg-primary">{{ this.data.size }}m²</span>   
+            <span class="badge bg-primary">{{ this.data.foundation_years }}</span> 
+            <span ref="badge" :class="this.formatEnergyNote()">{{ this.data.energy }}</span>
+          </div>
           <br>
           <div class="bottom-divide">Prix par m² <span class="price">{{ this.computeMeterPrice(this.data.price, this.data.size) }} €</span></div>
         </div>
@@ -29,17 +33,21 @@ export default {
       data: Object
     },
     methods: {
-      prepareData: function() {
-        console.log(this.data)
-        if (this.data.title != undefined) this.$refs.results.style.display = "block"
-      },
       computeMeterPrice: function(price, size) {
         return (price / size).toFixed(2)
+      },
+      formatEnergyNote: function() {
+        let result = "badge "
+        if (this.data.energy == "A") result += "bg-a"
+        if (this.data.energy == "B") result += "bg-b"
+        if (this.data.energy == "C") result += "bg-c"
+        if (this.data.energy == "D") result += "bg-d"
+        if (this.data.energy == "E") result += "bg-e"
+        if (this.data.energy == "F") result += "bg-f"
+        if (this.data.energy == "G") result += "bg-g"
+        return result
       }
-    },
-    updated() {
-      this.prepareData
-    },
+    }
 }
 </script>
 
