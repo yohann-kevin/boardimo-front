@@ -90,10 +90,10 @@ export default {
       }
     },
     formatPercentEnergy: function() {
-      return this.analyse.average_expanse_age.toFixed(2)
+      return this.analyse.percent-energy.toFixed(2)
     },
     priceEnergeticExpanse: function() {
-      return (this.analyse.energetic_value / this.results.size).toFixed(1)
+      return (this.analyse.energetic_value[0] / this.results.size).toFixed(1)
     },
     bgEnergy: function() {
       let note = this.results.energy
