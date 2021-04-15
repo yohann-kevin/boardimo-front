@@ -9,7 +9,7 @@
     <h4 class="alert-heading">Année de construction</h4>
     <p>Cette maison <b>est plus {{ this.ageRecently() }} que {{ this.computeAgePercent() }}%</b> des maisons en vente actuellement et a en moyenne <b>{{ this.computeAge() }} ans de {{ this.computeAgeDif() }} que la concurrence</b></p>
     <!-- <hr> -->
-    <p class="mb-0">Suite à un achat de ce type, un acquereur {{ this.ageEconomy() }} en moyenne <b>{{ this.analyse.house_age_value[0] }}€ de rénovations en tout genre</b> soit <b>17 325€ de moins</b> que la moyenne pour cette surface</p>
+    <p class="mb-0">Suite à un achat de ce type, un acquereur {{ this.ageEconomy() }} en moyenne <b>{{ this.analyse.house_age_value[0] }}€ de rénovations en tout genre</b> soit <b>{{ this.computeAgeExpanseAverage() }}</b> que la moyenne pour cette surface</p>
     </div>
     <div class="alert alert-warning" role="alert">
     <h4 class="alert-heading">Classe énergie</h4>
@@ -80,6 +80,14 @@ export default {
       if (houseAge < 40 && houseAge > 19) result += "alert-warning"
       if (houseAge > 40) result += "alert-danger"
       return result
+    },
+    computeAgeExpanseAverage: function() {
+      houseValue = house_age_value[0]
+      if (houseValue < average_expanse_age) {
+        return (average_expanse_age - houseValue) + "€ de moins"
+      } else {
+        return (houseValue - average_expanse_age) + "€ de plus"
+      }
     },
 
     finalEvaluation: function() {
