@@ -7,7 +7,7 @@
     </div>
     <div class="alert alert-info" role="alert">
     <h4 class="alert-heading">Année de construction</h4>
-    <p>Cette maison <b>est plus récente que 73%</b> des maisons en vente actuellement et a en moyenne <b>8 ans de moins que la concurrence</b></p>
+    <p>Cette maison <b>est plus récente que {{ this.computeAgePercent() }}%</b> des maisons en vente actuellement et a en moyenne <b>{{ this.computeAge() }} ans de {{ this.computeAgeDif() }} que la concurrence</b></p>
     <!-- <hr> -->
     <p class="mb-0">Suite à un achat de ce type, un acquereur dépensera en moyenne <b>39 600€ de rénovations en tout genre</b> soit <b>17 325€ de moins</b> que la moyenne pour cette surface</p>
     </div>
@@ -35,6 +35,8 @@ export default {
   },
   methods: {
     cumputePricePercent: function() {
+      console.log(this.results)
+      console.log(this.analyse)
       return (((this.results.price / this.results.size) / this.analyse.house_average) * 100).toFixed(2)
     },
     bgPrice: function() {
@@ -44,6 +46,18 @@ export default {
       if ((this.analyse.house_average * 0.75) <= meterPrice) result += "alert-info"
       if ((this.analyse.house_average * 1.25) <= meterPrice) result += "alert-warning"
       if (meterPrice >= (this.analyse.house_average * 1.5)) result += "alert-danger"
+      return result
+    },
+    computeAgePercent: function() {
+      return (((this.results.foundation_years - 2021) / this.analyse.years_average) * 100)
+    },
+    computeAge: function() {
+      return this.results.foundation_years - 2021
+    },
+    computeAgeDif: function() {
+      let houseAge = this.results.foundation_years - 2021
+      let result = ""
+      houseAge < this.analyse.years_average ? result += "moins" : result += "plus"
       return result
     }
   },
