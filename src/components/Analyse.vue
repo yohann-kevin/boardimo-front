@@ -34,7 +34,7 @@ export default {
     analyse: Object
   },
   methods: {
-    cumputePricePercent: function() {
+    computePricePercent: function() {
       console.log(this.results)
       console.log(this.analyse)
       return (((this.results.price / this.results.size) / this.analyse.house_average) * 100).toFixed(2)
@@ -60,9 +60,6 @@ export default {
       houseAge < this.analyse.years_average ? result += "moins" : result += "plus"
       return result
     }
-  },
-  updated() {
-    this.price
   }
 }
 </script>
