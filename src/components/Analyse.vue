@@ -90,7 +90,7 @@ export default {
       }
     },
     formatPercentEnergy: function() {
-      return this.analyse.percent-energy.toFixed(2)
+      return this.analyse.percent_energy.toFixed(2)
     },
     priceEnergeticExpanse: function() {
       return (this.analyse.energetic_value[0] / this.results.size).toFixed(1)
