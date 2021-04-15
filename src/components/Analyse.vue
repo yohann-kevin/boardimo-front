@@ -5,11 +5,11 @@
     <h4 class="alert-heading">Prix du bien</h4>
     <p>À {{ this.results.location }}, le prix moyen d'une maison au m² est de <b>{{ this.analyse.house_average }}€</b> soit {{ this.computePricePercent() }}% inférieur au prix de ce bien.</p>
     </div>
-    <div class="alert alert-info" role="alert">
+    <div :class="this.bgAge()" role="alert">
     <h4 class="alert-heading">Année de construction</h4>
     <p>Cette maison <b>est plus récente que {{ this.computeAgePercent() }}%</b> des maisons en vente actuellement et a en moyenne <b>{{ this.computeAge() }} ans de {{ this.computeAgeDif() }} que la concurrence</b></p>
     <!-- <hr> -->
-    <p class="mb-0">Suite à un achat de ce type, un acquereur dépensera en moyenne <b>39 600€ de rénovations en tout genre</b> soit <b>17 325€ de moins</b> que la moyenne pour cette surface</p>
+    <p class="mb-0">Suite à un achat de ce type, un acquereur {{ this.ageEconomy() }} en moyenne <b>{{ this.analyse.house_age_value[1] }}€ de rénovations en tout genre</b> soit <b>17 325€ de moins</b> que la moyenne pour cette surface</p>
     </div>
     <div class="alert alert-warning" role="alert">
     <h4 class="alert-heading">Classe énergie</h4>
@@ -49,15 +49,30 @@ export default {
       return result
     },
     computeAgePercent: function() {
-      return (((this.results.foundation_years - 2021) / this.analyse.years_average) * 100)
+      return (((2021 - this.results.foundation_years) / this.analyse.years_average) * 100)
     },
     computeAge: function() {
-      return this.results.foundation_years - 2021
+      return 2021 - this.results.foundation_years
     },
     computeAgeDif: function() {
-      let houseAge = this.results.foundation_years - 2021
+      let houseAge = 2021 - this.results.foundation_years
       let result = ""
       houseAge < this.analyse.years_average ? result += "moins" : result += "plus"
+      return result
+    },
+    ageEconomy: function() {
+      let isEconomy = this.analyse.house_age_value[1]
+      result = ""
+      isEconomy ? result += "économisera" : result += "dépensera"
+      return result
+    },
+    bgAge: function() {
+      let houseAge = 2021 - this.results.foundation_years
+      let result = "alert "
+      if (houseAge < 10) result += "alert-success"
+      if (houseAge < 20 && houseAge > 9) result += "alert-info"
+      if (houseAge < 40 && houseAge > 19) result += "alert-warning"
+      if (houseAge > 40) result += "alert-danger"
       return result
     }
   }
