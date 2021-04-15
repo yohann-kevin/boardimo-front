@@ -21,7 +21,7 @@
     <h4 class="alert-heading">Estimation</h4>
     <p>En prenant en compte l'année de construction, la localisation et le prix au m2 nous pensons que cette maison est {{ this.finalEvaluation }}.</p>
     <!-- <hr> -->
-    <p class="mb-0">Afin de correspondre au prix du marché nous évaluons que le prix de ce bien devrait se situer entre <b>{{ this.omputePotentialMinValue() }}€</b> et <b>{{ this.computePotentialMaxValue() }}€</b></p>
+    <p class="mb-0">Afin de correspondre au prix du marché nous évaluons que le prix de ce bien devrait se situer entre <b>{{ this.computePotentialMinValue() }}€</b> et <b>{{ this.computePotentialMaxValue() }}€</b></p>
     </div>
   </div>
 </template>
