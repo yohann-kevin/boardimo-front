@@ -62,7 +62,7 @@ export default {
     },
     ageEconomy: function() {
       let isEconomy = this.analyse.house_age_value[1]
-      result = ""
+      let result = ""
       isEconomy ? result += "économisera" : result += "dépensera"
       return result
     },
