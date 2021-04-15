@@ -14,7 +14,7 @@
         "energetic_value" : [35045.5, true], 
         "house_age_value" : [77035, false], 
         "real_square_meter_price" : 2031.5,
-        "percent-energy": 11.363636363636363,
+        "percent_energy": 11.363636363636363,
         "average_expanse_age": 20615
     }
 }

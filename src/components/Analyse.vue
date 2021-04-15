@@ -3,7 +3,7 @@
     <h2>Analyse du bien</h2>
     <div :class="this.bgPrice()" role="alert">
     <h4 class="alert-heading">Prix du bien</h4>
-    <p>À {{ this.results.location }}, le prix moyen d'une maison au m² est de <b>{{ this.analyse.house_average }}€</b> soit {{ this.computePricePercent() }}% inférieur au prix de ce bien.</p>
+    <p>À {{ this.results.location }}, le prix moyen d'une maison au m² est de <b>{{ this.analyse.house_average }}€</b> soit {{ this.computePricePercent() }}% {{ this.computePriceDif() }} au prix de ce bien.</p>
     </div>
     <div :class="this.bgAge()" role="alert">
     <h4 class="alert-heading">Année de construction</h4>
@@ -47,6 +47,13 @@ export default {
       if ((this.analyse.house_average * 1.25) <= meterPrice) result += "alert-warning"
       if (meterPrice >= (this.analyse.house_average * 1.5)) result += "alert-danger"
       return result
+    },
+    computePriceDif: function() {
+      if ((this.results.price / this.results.size) < this.analyse.house_average) {
+        return "supérieur"
+      } else {
+        return "inférieur"
+      }
     },
     computeAgePercent: function() {
       return (((2021 - this.results.foundation_years) / this.analyse.years_average) * 100).toFixed(2)
