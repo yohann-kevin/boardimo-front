@@ -53,6 +53,9 @@ export default {
       if (meterPrice >= (this.analyse.house_average * 1.5)) result += "alert-danger"
       return result
     }
+  },
+  updated() {
+    this.price
   }
 }
 </script>
