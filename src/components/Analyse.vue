@@ -7,7 +7,7 @@
     </div>
     <div :class="this.bgAge()" role="alert">
     <h4 class="alert-heading">Année de construction</h4>
-    <p>Cette maison <b>est plus récente que {{ this.computeAgePercent() }}%</b> des maisons en vente actuellement et a en moyenne <b>{{ this.computeAge() }} ans de {{ this.computeAgeDif() }} que la concurrence</b></p>
+    <p>Cette maison <b>est plus {{ this.ageRecently() }} que {{ this.computeAgePercent() }}%</b> des maisons en vente actuellement et a en moyenne <b>{{ this.computeAge() }} ans de {{ this.computeAgeDif() }} que la concurrence</b></p>
     <!-- <hr> -->
     <p class="mb-0">Suite à un achat de ce type, un acquereur {{ this.ageEconomy() }} en moyenne <b>{{ this.analyse.house_age_value[0] }}€ de rénovations en tout genre</b> soit <b>17 325€ de moins</b> que la moyenne pour cette surface</p>
     </div>
@@ -19,7 +19,7 @@
     </div>
     <div :class="this.bgFinalEvaluation()" role="alert">
     <h4 class="alert-heading">Estimation</h4>
-    <p>En prenant en compte l'année de construction, la localisation et le prix au m2 nous pensons que cette maison est {{ this.finalEvaluation }}.</p>
+    <p>En prenant en compte l'année de construction, la localisation et le prix au m2 nous pensons que cette maison est {{ this.finalEvaluation() }}.</p>
     <!-- <hr> -->
     <p class="mb-0">Afin de correspondre au prix du marché nous évaluons que le prix de ce bien devrait se situer entre <b>{{ this.computePotentialMinValue() }}€</b> et <b>{{ this.computePotentialMaxValue() }}€</b></p>
     </div>
@@ -60,6 +60,12 @@ export default {
       houseAge < this.analyse.years_average ? result += "moins" : result += "plus"
       return result
     },
+    ageRecently: function() {
+      let isEconomy = this.analyse.house_age_value[1]
+      let result = ""
+      isEconomy ? result += "récente" : result += "ancienne"
+      return result
+    },
     ageEconomy: function() {
       let isEconomy = this.analyse.house_age_value[1]
       let result = ""
@@ -84,10 +90,10 @@ export default {
       }
     },
     computePotentialMinValue: function() {
-      return ((this.house_average * this.results.size) * 0.9).toFixed(2)
+      return ((this.analyse.house_average * this.results.size) * 0.9).toFixed(2)
     },
     computePotentialMaxValue: function() {
-      return ((this.house_average * this.results.size) * 1.1).toFixed(2)
+      return ((this.analyse.house_average * this.results.size) * 1.1).toFixed(2)
     },
     bgFinalEvaluation: function() {
       let priceMeter = this.analyse.real_square_meter_price
